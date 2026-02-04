@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Tracker AI 💰</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Font Awesome (ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-robot text-4xl text-purple-600"></i>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">Finance Tracker</h1>
+                        <p class="text-sm text-gray-500">Powered by AI 🤖</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-2xl font-bold text-green-600" id="saldo-total">R$ 0,00</p>
+                    <p class="text-xs text-gray-500">Saldo Total</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Cards de Resumo -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Receitas -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Receitas</p>
+                        <p class="text-2xl font-bold text-green-600" id="total-receitas">R$ 0,00</p>
+                    </div>
+                    <i class="fas fa-arrow-up text-3xl text-green-500"></i>
+                </div>
+            </div>
+            
+            <!-- Despesas -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-red-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Despesas</p>
+                        <p class="text-2xl font-bold text-red-600" id="total-despesas">R$ 0,00</p>
+                    </div>
+                    <i class="fas fa-arrow-down text-3xl text-red-500"></i>
+                </div>
+            </div>
+            
+            <!-- Transações -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Transações</p>
+                        <p class="text-2xl font-bold text-blue-600" id="total-transacoes">0</p>
+                    </div>
+                    <i class="fas fa-list text-3xl text-blue-500"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Formulário -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                        <i class="fas fa-plus-circle text-purple-600"></i>
+                        Nova Transação
+                    </h2>
+                    
+                    <form id="form-despesa" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Descrição
+                            </label>
+                            <input 
+                                type="text" 
+                                id="descricao" 
+                                required
+                                placeholder="Ex: Uber pra casa, iFood pizza..."
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            >
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Valor (R$)
+                                </label>
+                                <input 
+                                    type="number" 
+                                    id="valor" 
+                                    step="0.01" 
+                                    required
+                                    placeholder="0,00"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                >
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Tipo
+                                </label>
+                                <select 
+                                    id="tipo" 
+                                    required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                >
+                                    <option value="despesa">Despesa</option>
+                                    <option value="receita">Receita</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Data
+                            </label>
+                            <input 
+                                type="date" 
+                                id="data" 
+                                required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            >
+                        </div>
+                        
+                        <!-- Categoria será preenchida pela IA! -->
+                        <div id="categoria-preview" class="hidden bg-purple-50 border border-purple-200 rounded-lg p-4">
+                            <p class="text-sm text-gray-600">
+                                <i class="fas fa-robot text-purple-600"></i>
+                                IA vai categorizar como: 
+                                <span id="categoria-sugerida" class="font-bold text-purple-600"></span>
+                            </p>
+                        </div>
+                        
+                        <button 
+                            type="submit"
+                            class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition duration-300 shadow-lg"
+                        >
+                            <i class="fas fa-save mr-2"></i>
+                            Adicionar Transação
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Gráfico -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4 text-gray-800">
+                    <i class="fas fa-chart-pie text-purple-600"></i>
+                    Categorias
+                </h2>
+                <canvas id="grafico-categorias"></canvas>
+            </div>
+        </div>
+        
+        <!-- Lista de Despesas -->
+        <div class="mt-8 bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                <i class="fas fa-history text-purple-600"></i>
+                Histórico de Transações
+            </h2>
+            
+            <div id="lista-despesas" class="space-y-3">
+                <!-- Despesas serão inseridas aqui pelo JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

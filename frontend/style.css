@@ -1,0 +1,108 @@
+/* Animações suaves */
+* {
+    transition: all 0.3s ease;
+}
+
+/* Scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animação de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.5s ease;
+}
+
+/* Card de despesa */
+.despesa-card {
+    border-left: 4px solid;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.despesa-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.despesa-card.receita {
+    border-color: #10b981; /* verde */
+}
+
+.despesa-card.despesa {
+    border-color: #ef4444; /* vermelho */
+}
+
+/* Botão de deletar */
+.btn-delete {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.despesa-card:hover .btn-delete {
+    opacity: 1;
+}
+
+/* Badge de categoria */
+.categoria-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Cores por categoria */
+.cat-transporte { background-color: #dbeafe; color: #1e40af; }
+.cat-alimentacao { background-color: #fef3c7; color: #92400e; }
+.cat-assinaturas { background-color: #e0e7ff; color: #3730a3; }
+.cat-saude { background-color: #fce7f3; color: #9f1239; }
+.cat-moradia { background-color: #d1fae5; color: #065f46; }
+.cat-outros { background-color: #f3f4f6; color: #374151; }
+
+/* Loading spinner */
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #8b5cf6;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Efeito de pulso na IA */
+.ai-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .despesa-card {
+        font-size: 0.9rem;
+    }
+}
