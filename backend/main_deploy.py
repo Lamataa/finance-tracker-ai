@@ -5,7 +5,6 @@ from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 from database import engine, Base, SessionLocal, TransactionDB
 from models import Transaction
-from datetime import date
 from categorizer import categorizador
 import os
 
@@ -63,11 +62,22 @@ def deletar_despesa(despesa_id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"message": "Despesa deletada com sucesso"}
 
-# Serve frontend
+
 frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
+
 if os.path.exists(frontend_path):
-    app.mount("/static", StaticFiles(directory=frontend_path), name="static")
-    
     @app.get("/")
     async def read_index():
         return FileResponse(os.path.join(frontend_path, "index.html"))
+    
+    @app.get("/style.css")
+    async def serve_css():
+        return FileResponse(os.path.join(frontend_path, "style.css"))
+    
+    @app.get("/script.js")
+    async def serve_js():
+        return FileResponse(os.path.join(frontend_path, "script.js"))
+    
+    @app.get("/favicon.ico")
+    async def serve_favicon():
+        return {"message": "No favicon"}
