@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.104-009688?logo=fastapi&logoColor=white)
 ![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.3-F7931E?logo=scikitlearn&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Production-success)
+![Status](https://img.shields.io/badge/Status-Completed-success)
 
 **Sistema de controle financeiro com categorização automática baseada em Machine Learning**
 
@@ -300,3 +300,4 @@ Desenvolvedor Full-Stack | Machine Learning Enthusiast
 ---
 
 **Desenvolvido como projeto de portfólio técnico**
+
